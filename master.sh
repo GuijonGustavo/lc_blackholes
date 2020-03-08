@@ -27,36 +27,45 @@ t_start=558978321
 t_stop=594087759
 cores=48
 bins=1
-
-
-for (( i=1; i<=$cores; i++ ))
-do
-
-touch $src'_'$i.sh
-echo "#!/bin/bash" >> $src'_'$i.sh
-
-#$t_dif #406
-#$t_cociente #8
-#$t_res #22
-
-sc=L200215232030D227484224_SC00.fits
-asc=29.5
-decli=65.73333333
-radio=15
-
-n=$i
-t_inc=$(echo "$n * 86400 + $t_start" | bc)
 src=frb
 
 t_dif=$(echo "($t_stop - $t_start)/(86400 * $bins)" | bc)
 t_cociente=$(echo "$t_dif/$cores" | bc)
 t_res=$(echo "$t_dif%$cores" | bc)
 
+j=0
+k=$t_cociente
 
-echo "while ((n <= "$t_cociente"))" >> $src'_'$i.sh
+for (( i=1; i<=$cores; i++ ))
+do
+
+first=$t_start
+touch $src'_'$i.sh
+echo "#!/bin/bash" >> $src'_'$i.sh
+
+sc=L200215232030D227484224_SC00.fits
+asc=29.5
+decli=65.73333333
+radio=15
+
+#t_intervalo=$t_start*$i*$t_cociente
+
+
+#k=$(echo "$t_cociente" | bc)
+#j=$(echo "$t_cociente+$t_cociente" | bc)
+#intervalo = $(echo "t_start + $i * $t_cociente * 86400" | bc)
+
+
+echo "t_inc = ${first}" >> $src'_'$i.sh
+echo "n=$j" >> $src'_'$i.sh
+echo "m=$k" >> $src'_'$i.sh
+#echo "m=\$(echo '\$t_cociente * $\i' | bc)" >> $src'_'$i.sh
+
+#echo "while ((n <= "$t_cociente"))" >> $src'_'$i.sh
+echo "while ((n < m))" >> $src'_'$i.sh
 echo "do" >> $src'_'$i.sh
 
-	echo "t_fin=\$(echo '${t_inc} + 86400' | bc)" >> $src'_'$i.sh
+	echo "t_fin=\$(echo '\$t_inc + 86400' | bc)" >> $src'_'$i.sh
 
 	echo "echo 'Comienza gtselect'" >> $src'_'$i.sh
 
@@ -169,11 +178,18 @@ echo "fi" >> $src'_'$i.sh
 
 echo "done" >> $src'_'$i.sh
 
+((j +=$t_cociente))
+((k +=$t_cociente))
+
+#t_intervalo+=86400
+t_intervalo=$t_cociente*$first
+done
+
 #End While loop
 
 #$t_inc = $t_inc
 #$n = $t_cociente+1
 #$t_cociente += $n
 
-done
+#done
 #End for loop
