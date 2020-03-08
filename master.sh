@@ -22,6 +22,9 @@ first=$t_start
 for (( i=1; i<=$cores+1; i++ ))
 do
 
+touch $src'_geek'
+echo  "${src}_${i}.sh" >> $src'_geek'
+
 touch $src'_'$i.sh
 echo "#!/bin/bash" >> $src'_'$i.sh
 echo "# Made by:" >> $src'_'$i.sh
@@ -125,36 +128,34 @@ echo "if [[ \$the_world_is_flat==false ]]; then" >> $src'_'$i.sh
 echo "fi" >> $src'_'$i.sh
 
 
-#echo "echo 'Comienza bitacora'" >> $src'_'$i.sh
-#
-#echo "if [[ -f ${src}_bitacora_\$n.log ]]; then" >> $src'_'$i.sh
-# 
-#
-#echo "mv ${src}_particular_\$n.fits particular" >> $src'_'$i.sh
-#
-#echo "mv ${src}_time_\$n.fits time" >> $src'_'$i.sh
-# 
-#echo "mv ${src}_cube_\$n.fits cube" >> $src'_'$i.sh
-#
-#echo "mv ${src}_bin_\$n.fits bin" >> $src'_'$i.sh
-#
-#echo "mv ${src}_map_\$n.fits map" >> $src'_'$i.sh
-#
-#echo "mv ${src}_bitacora_\$n.log bitacoras" >> $src'_'$i.sh
-#
-#echo "mv counts_spectra.fits counts/counts_spectra_\$n.fits" >> $src'_'$i.sh
-#
-#echo "mv results.dat results/results_\$n.dat" >> $src'_'$i.sh
-#
-#
-#echo "echo 'Listo bitacora_${src}_\$n.log'" >> $src'_'$i.sh
-#
-#echo "fi" >> $src'_'$i.sh
+echo "echo 'Comienza bitacora'" >> $src'_'$i.sh
+
+echo "if [[ -f ${src}_bitacora_\$n.log ]]; then" >> $src'_'$i.sh
+ 
+
+echo "mv ${src}_particular_\$n.fits particular" >> $src'_'$i.sh
+
+echo "mv ${src}_time_\$n.fits time" >> $src'_'$i.sh
+ 
+echo "mv ${src}_cube_\$n.fits cube" >> $src'_'$i.sh
+
+echo "mv ${src}_bin_\$n.fits bin" >> $src'_'$i.sh
+
+echo "mv ${src}_map_\$n.fits map" >> $src'_'$i.sh
+
+echo "mv ${src}_bitacora_\$n.log bitacoras" >> $src'_'$i.sh
+
+echo "mv counts_spectra.fits counts/counts_spectra_\$n.fits" >> $src'_'$i.sh
+
+echo "mv results.dat results/results_\$n.dat" >> $src'_'$i.sh
+
+
+echo "echo 'Listo bitacora_${src}_\$n.log'" >> $src'_'$i.sh
+
+echo "fi" >> $src'_'$i.sh
 
 	echo "((n+=1))" >> $src'_'$i.sh
 
-
-	#echo "((t_inc=\$t_fin + 86400))" >> $src'_'$i.sh
 	echo "((t_inc=\$t_fin + 1))" >> $src'_'$i.sh
 
 echo "done" >> $src'_'$i.sh
@@ -163,7 +164,7 @@ echo "done" >> $src'_'$i.sh
 ((k+=$t_cociente))
 ((t_start+=86400))
 
-((first+=86400*($t_cociente+1)))
+#Se suma una unidad para que los intervalos no se traslapen
+((first+=(86400+1)*$t_cociente))
 
 done
-
