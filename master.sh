@@ -19,11 +19,13 @@ t_res=$(echo "$t_dif%$cores" | bc)
 j=1
 k=$t_cociente
 first=$t_start
+
+touch 'geek'
+
 for (( i=1; i<=$cores+1; i++ ))
 do
 
-touch $src'_geek'
-echo  "${src}_${i}.sh" >> $src'_geek'
+echo  "${src}_${i}.sh" >> 'geek'
 
 touch $src'_'$i.sh
 echo "#!/bin/bash" >> $src'_'$i.sh
