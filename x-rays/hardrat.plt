@@ -18,6 +18,12 @@ set xtics format " "
 set ylabel "1.5-10 keV c/s"
 set lmargin 10.4
 
+set x2data time
+set timefmt "%Y-%m-%d"
+set format x2 "%Y-%m-%d"
+set x2tics
+set x2range["2004-12-11":"2019-06-22"]
+
 plot "<(sed -n '3,81148p' hardrat.dat)" using ($1*0.000011570+53350.59793623):4:5 title "Windowed Timing" with yerrorbars lc "blue", \
 "<(sed -n '243454,243516p' hardrat.dat)" using ($1*0.000011570+53350.59793623):4:5 title "Photon Counting" with yerrorbars lc "red"
 

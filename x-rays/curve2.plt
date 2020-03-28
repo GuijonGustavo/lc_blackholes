@@ -18,6 +18,13 @@ set multiplot layout 2, 1 title "Swift/XRT Mrk 421"
 set bmargin 0
 set xtics format " "
 set lmargin 10
+
+set x2data time
+set timefmt "%Y-%m-%d"
+set format x2 "%Y-%m-%d"
+set x2tics
+set x2range["2004-12-11":"2019-06-22"]
+
 set ylabel "Count Rate (0.3-10 keV) (s^-1)" # \n{/*0.8 Photon Counting Source}"
 
 plot "<(sed -n '2,160031p' curve2.dat)" using ($1*0.000011570+53350.59793623):4:5:6 title "Windowed Timing (source)" with yerrorbars lc "blue", \
