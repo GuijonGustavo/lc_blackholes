@@ -23,12 +23,12 @@ set x2data time
 set timefmt "%Y-%m-%d"
 set format x2 "%Y-%m-%d"
 set x2tics
-set x2range["2004-12-11":"2019-06-22"]
+set x2range["2005-03-01":"2020-04-01"]
 
 set ylabel "Count Rate (0.3-10 keV) (s^-1)" # \n{/*0.8 Photon Counting Source}"
 
-plot "<(sed -n '2,160031p' curve2.dat)" using ($1*0.000011570+53350.59793623):4:5:6 title "Windowed Timing (source)" with yerrorbars lc "blue", \
-"<(sed -n '160036,$p' curve2.dat)" using ($1*0.000011570+53350.59793623):4:5:6 title "Photon Counting (source)" with yerrorbars lc "red"
+plot "<(sed -n '2,160305p' curve2.dat)" using 1:4:5:6 title "Windowed Timing (source)" with yerrorbars lc "blue", \
+"<(sed -n '160310,$p' curve2.dat)" using 1:4:5:6 title "Photon Counting (source)" with yerrorbars lc "red"
 
 set tmargin 0
 set bmargin 3
@@ -38,8 +38,8 @@ set xlabel "MJD"
 set ylabel "FracExp" # \n{/*0.8 Photon Counting Background}"
 
 
-plot "<(sed -n '2,160031p' curve2.dat)" using ($1*0.000011570+53350.59793623):7:8:9 title "Windowed Timing (background)" with yerrorbars lc "pink", \
-"<(sed -n '160036,$p' curve2.dat)" using ($1*0.000011570+53350.59793623):7:8:9 title "Photon Counting (background)" with yerrorbars lc "green"
+plot "<(sed -n '2,160305p' curve2.dat)" using 1:7:8:9 title "Windowed Timing (background)" with yerrorbars lc "pink", \
+"<(sed -n '160310,$p' curve2.dat)" using 1:7:8:9 title "Photon Counting (background)" with yerrorbars lc "green"
 
 unset multiplot
 

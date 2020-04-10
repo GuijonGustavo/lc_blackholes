@@ -15,8 +15,8 @@ set x2data time
 set timefmt "%Y-%m-%d"
 set format x2 "%Y-%m-%d"
 set x2tics
-set x2range["2004-12-11":"2019-06-22"]
+set x2range["2005-03-01":"2020-04-01"]
 set ylabel "Count Rate (0.3-10 keV)(c/s)"
 
-plot "<(sed -n '3,160040p' curve.dat)" using ($1*0.000011570+53350.59793623):4:5:6 title "Windowed Timing" with yerrorbars lc "blue", \
-"<(sed -n '160046,$p' curve.dat)" using ($1*0.000011570+53350.59793623):4:5:6 title "Photon Counting" with yerrorbars lc "red"
+plot "<(sed -n '3,160328p' curve.dat)" using 1:4:5:6 title "Windowed Timing" with yerrorbars lc "blue", \
+"<(sed -n '160334,$p' curve.dat)" using 1:4:5:6 title "Photon Counting" with yerrorbars lc "red"
