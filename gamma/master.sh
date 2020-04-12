@@ -123,6 +123,6 @@ do
     ((t_start+=86400))
     
     #ADD AN UNIT FOR INTERVALES DON'T FOLDING
-    ((first+=(86400+1)*$t_cociente))
+    ((first+=(86400)*($t_cociente+1)))
     
 done
