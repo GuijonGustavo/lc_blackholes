@@ -13,8 +13,8 @@ t_start=TIME_START
 t_stop=TIME_END
 cores=48 #CORES. FOR DEFAULT IS 48
 bins=1 #BINS. FOR DEFAULT IS 1
-src=NAME_OF_OBJECT 
-sc=SPACECRAFTFILE.fits
+src=NAME_OF_OBJECT
+sc=SPACECRAFTFILE.fits 
 asc=RIGH_ASCENCION
 decli=DECLINATION
 radio=15 #RADIUS. FOR DEFAULT IS 15
@@ -31,7 +31,7 @@ mkdir cube
 mkdir bin 
 mkdir map 
 mkdir bitacoras 
-touch 'geek'
+touch 'lc_gen.sh'
 
 #CALULATE INTERVALS
 
@@ -41,6 +41,66 @@ t_res=$(echo "$t_dif%$cores" | bc)
 
 k=$t_cociente
 first=$t_start
+
+#CREATE lc_gen.sh
+chmod u+x lc_gen.sh
+echo "#!/bin/bash" >> lc_gen.sh
+echo "# Made by:" >> lc_gen.sh
+echo "# Gustavo Magallanes-Guijón <gustavo.magallanes.guijon@ciencias.unam.mx>" >> lc_gen.sh
+echo "# Instituto de Astronomia UNAM" >> lc_gen.sh
+echo "# Ciudad Universitaria" >> lc_gen.sh
+echo "# Ciudad de Mexico" >> lc_gen.sh
+echo "# Mexico" >> lc_gen.sh
+
+echo "n=1" >> lc_gen.sh
+echo "nmax=NUM_FILES" >> lc_gen.sh
+echo "while (( n < nmax ))" >> lc_gen.sh
+echo "do" >> lc_gen.sh
+echo "#Lectura del tiempo del satelite y conversión a días julianos modificados" >> lc_gen.sh
+echo "fold -80 particular/${src}_particular_\$n.fits | more | grep -a 'TSTART  =' > archivo0.dat" >> lc_gen.sh
+echo "sed '2d' archivo0.dat > archivo1.dat" >> lc_gen.sh
+echo "sed '2d' archivo1.dat > archivo2.dat" >> lc_gen.sh
+echo "sed 's/TSTART  =           //g' archivo2.dat > archivo3.dat" >> lc_gen.sh
+echo "sed 's/ [/] mission time of the start of the observation//g' archivo3.dat > archivo.dat" >> lc_gen.sh
+echo "ts=\$(cat archivo.dat)" >> lc_gen.sh
+echo "mjd=\$(echo \"\$ts * 0.00001157407407407407 + 51909.99998842814916530681\" | bc -l)" >> lc_gen.sh
+echo "#Lectura y limpieza de parametros espectrales de LAT" >> lc_gen.sh
+echo "F=\$(less bitacoras/${src}_bitacora_\"\$n\".log | grep -A 7 ${src} | grep Flux)" >> lc_gen.sh
+echo "echo \"\$mjd	\$F	\$I\" >> cont1.dat" >> lc_gen.sh
+echo "sed -e s/Flux://g -e s/Index://g -e s/s//g -e s/photon//g -e s/cm^2//g -e s/-//g  cont1.dat >conteo1.dat" >> lc_gen.sh
+echo "sed 's/+/	/g' conteo1.dat > con.dat" >> lc_gen.sh
+echo "sed 's/[/]//g' con.dat > conteo1a.dat" >> lc_gen.sh
+echo "sed 's/e/e-/g' conteo1a.dat > ${src}.dat" >> lc_gen.sh
+echo "((n += 1))" >> lc_gen.sh
+echo "done" >> lc_gen.sh
+echo "rm con.dat cont1.dat conteo1.dat archivo0.dat archivo1.dat archivo2.dat archivo3.dat conteo1a.dat archivo.dat " >> lc_gen.sh
+echo "exit 0" >> lc_gen.sh
+
+#CREATE PLOT 
+
+echo "#!/bin/bash" >> $src.plt
+echo "# Made by:" >> $src.plt
+echo "# Gustavo Magallanes-Guijón <gustavo.magallanes.guijon@ciencias.unam.mx>" >> $src.plt
+echo "# Instituto de Astronomia UNAM" >> $src.plt
+echo "# Ciudad Universitaria" >>  $src.plt
+echo "# Ciudad de Mexico" >>  $src.plt
+echo "# Mexico" >> $src.plt
+
+
+echo "set terminal png size 1280,960" >> $src.plt
+echo "set key autotitle columnhead" >> $src.plt
+echo "set key" >> $src.plt
+echo "set output \"${src}.png\"" >> $src.plt
+echo "set title \"Fermi/GAMMA $src\"" >> $src.plt
+echo "set xlabel \"MJD\"" >> $src.plt
+echo "set x2data time" >> $src.plt
+echo "set timefmt \"%Y-%m-%d\"" >> $src.plt
+echo "set format x2 \"%Y-%m-%d\"" >> $src.plt
+echo "set x2tics" >> $src.plt
+echo "set x2range[\"2005-03-01\":\"2020-04-01\"]" >> $src.plt
+echo "set ylabel \"Flux (photons/cm^2/s)\"" >> $src.plt
+echo "plot '${src}.dat' using 1:2:3 title \"Flux (photons/cm^2/s)\" with yerrorbars lc \"blue\"" >> $src.plt
+
 
 #CREATE i FILES
 
