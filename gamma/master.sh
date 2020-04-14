@@ -66,7 +66,7 @@ echo "ts=\$(cat archivo.dat)" >> lc_gen.sh
 echo "mjd=\$(echo \"\$ts * 0.00001157407407407407 + 51909.99998842814916530681\" | bc -l)" >> lc_gen.sh
 echo "#Lectura y limpieza de parametros espectrales de LAT" >> lc_gen.sh
 echo "F=\$(less bitacoras/${src}_bitacora_\"\$n\".log | grep -A 7 ${src} | grep Flux)" >> lc_gen.sh
-echo "echo \"\$mjd	\$F	\$I\" >> cont1.dat" >> lc_gen.sh
+echo "echo \"\$mjd	\$F\" >> cont1.dat" >> lc_gen.sh
 echo "sed -e s/Flux://g -e s/Index://g -e s/s//g -e s/photon//g -e s/cm^2//g -e s/-//g  cont1.dat >conteo1.dat" >> lc_gen.sh
 echo "sed 's/+/	/g' conteo1.dat > con.dat" >> lc_gen.sh
 echo "sed 's/[/]//g' con.dat > conteo1a.dat" >> lc_gen.sh
