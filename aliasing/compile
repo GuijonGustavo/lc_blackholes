@@ -1,0 +1,3 @@
+#!/bin/sh
+
+gcc -o aliasing -lm aliasing.c

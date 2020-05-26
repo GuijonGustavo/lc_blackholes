@@ -1,0 +1,61 @@
+#para ejecutar el escript en terminal: gnuplot -persist grap.plt
+#Aqui va el primer plot. El de los datos en energias de 100Mev a 300GeV
+#aavso_mrk421  OPTICO
+
+set terminal png size 1280,960
+#set datafile separator ","
+#set key autotitle columnhead
+#set key off
+#set output "frb_lc.png"
+#set title "Gamma"
+#set xlabel "MJD"
+#set ylabel "Flux (ph/cm**2/s)"
+#plot "frb.csv" using 1:2:3 with yerrorbars#, 12.843 with line linetype -1 linewidth 1
+#
+############################
+#Aqui va su respectivo periodograma
+
+#set terminal x11 1
+#para ejecutar el escript en terminal: gnuplot -persist grap.plt
+
+set datafile separator ","
+set key autotitle columnhead
+set key off
+set output "radio_rpt_mrk421.png"
+set title "RobPer"
+set xlabel "Period (days)"
+set ylabel "Coeficient of determination"
+plot "radio_rpt_mrk421.csv" using 1:2 smooth csplines#impulses#using 1:2:3 with yerrorbars#with impulses 
+
+#dia: 320
+#cd: 458.845
+#probabilidad de ocurrir: 3.122329e-03
+
+#####################################
+#####################################
+
+set datafile separator ","
+set key autotitle columnhead
+set key off
+set output "radio_lomb_mrk421.png"
+set title "LombScargle"
+set xlabel "Period (days)"
+set ylabel "Coeficient of determination"
+set samples 800
+#plot "frb_lomb.csv" using 2:3 with yerrorbars#with impulses 
+plot "radio_lomb_mrk421.csv" using 1:2 smooth csplines#with impulses 
+
+#####################################
+#####################################
+#
+#set datafile separator ","
+#set key autotitle columnhead
+#set key off
+#set output "fold.png"
+#set title "Folding"
+#set xlabel "Period (days)"
+#set ylabel "Flux (ph/cm**2/s)"
+#plot "frb_fold.csv" using 1:2, 0.0000001*sin(0.088*x-0.9) + 0.0000003# pt 6 ps 2.5 lc "black", sin(x)
+#
+#
+#

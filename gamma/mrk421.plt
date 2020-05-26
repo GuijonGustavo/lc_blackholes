@@ -16,6 +16,6 @@ set timefmt "%Y-%m-%d"
 set format x2 "%Y-%m-%d"
 set x2tics
 set x2range["2008-08-04":"2020-03-09"]
-set ylabel "Count Rate (0.3-10 keV)(c/s)"
+set ylabel "photons/cm^2/s"
 
-plot 'mrk421.dat' using 1:2:3 title "Count Rate (0.3-10 keV)(c/s)" with yerrorbars lc "blue"
+plot 'mrk421.dat' using 1:2:3 title "photons/cm^2/s" with yerrorbars lc "blue"
