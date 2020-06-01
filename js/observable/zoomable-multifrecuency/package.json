@@ -1,0 +1,14 @@
+{
+  "name": "@likecarter/u-s-treasury-general-account-comparison-with-the-s-p500",
+  "main": "7ad6190ca5bbfc29@638.js",
+  "version": "638.0.0",
+  "homepage": "https://observablehq.com/@likecarter/u-s-treasury-general-account-comparison-with-the-s-p500",
+  "author": {
+    "name": "Carter Sprigings",
+    "url": "https://observablehq.com/@likecarter"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}

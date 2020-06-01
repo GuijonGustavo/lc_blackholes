@@ -19,4 +19,4 @@ awk 'FNR==NR{a[$1]=$2;next}{print $0,a[$1]?a[$1]:"0"}' file_sort.dat salida.dat 
 
 datamash transpose < curve_sort.dat > curve_transpose.dat
 
-
+%s/,0$/,NaN/g
