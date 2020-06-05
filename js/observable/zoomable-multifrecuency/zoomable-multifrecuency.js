@@ -3,7 +3,7 @@ import define1 from "./a33468b95d0b15b0@692.js";
 
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["optical.csv",new URL("./files-m/optical",import.meta.url)],["radio.csv",new URL("./files-m/radio",import.meta.url)],["xrays.csv",new URL("./files-m/xrays",import.meta.url)],["gamma.csv",new URL("./files-m/gamma",import.meta.url)]]);
+  const fileAttachments = new Map([["radio.csv",new URL("./files-0/radio",import.meta.url)],["optical.csv",new URL("./files-0/optical",import.meta.url)],["xrays.csv",new URL("./files-0/xrays",import.meta.url)],["gamma.csv",new URL("./files-0/gamma",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
 md`# Multi-Frecuency Chart Mrk421
@@ -50,14 +50,14 @@ legend({
     .append("path")
     .datum(radio)
     .attr("clip-path", clipId)
-    .attr("opacity", 0.9)
+    .attr("opacity", 0.6)
     .attr("fill", scheme[0]);
 
   const pathOptical = svg
     .append("path")
     .datum(data)
     .attr("clip-path", clipId)
-    .attr("opacity", 0.9)
+    .attr("opacity", 0.6)
     .attr("fill", scheme[1]);
 
 
@@ -65,14 +65,14 @@ legend({
     .append("path")
     .datum(xrays)
     .attr("clip-path", clipId)
-    .attr("opacity", 0.9)
+    .attr("opacity", 0.6)
     .attr("fill", scheme[2]);
 
 	const pathG = svg
     .append("path")
     .datum(xrays)
     .attr("clip-path", clipId)
-    .attr("opacity", 0.9)
+    .attr("opacity", 0.6)
     .attr("fill", scheme[3]);
 
 
