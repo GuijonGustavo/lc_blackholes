@@ -10,7 +10,7 @@ Student: Gustavo Magallanes-Guijon.
 Advisor: Dr. Sergio Mendoza Ramos`
 	  //Data: [Bureau of Labor Statistics](https://www.bls.gov/)`
 )});
-  main.variable(observer("chart")).define("chart", ["d3","width","height","xAxis","yAxis","data","line","hover"], function(d3,width,height,xAxis,yAxis,data,line,hover)
+  main.variable(observer("chart")).define("chart", ["d3","width","height","xAxis","yAxis","data","line","hover","line_color"], function(d3,width,height,xAxis,yAxis,data,line,hover,line_color)
 {
   const svg = d3.create("svg")
       .attr("viewBox", [0, 0, width, height])
@@ -53,7 +53,7 @@ Advisor: Dr. Sergio Mendoza Ramos`
   };
 }
 );
-  main.variable(observer("hover")).define("hover", ["d3","x","y","data"], function(d3,x,y,data){return(
+  main.variable(observer("hover")).define("hover", ["d3","x","y","data","line_color"], function(d3,x,y,data,line_color){return(
 function hover(svg, path) {
   
   if ("ontouchstart" in document) svg
@@ -87,7 +87,8 @@ function hover(svg, path) {
     const i0 = i1 - 1;
     const i = xm - data.dates[i0] > data.dates[i1] - xm ? i1 : i0;
     const s = d3.least(data.series, d => Math.abs(d.values[i] - ym));
-    path.attr("stroke", d => d === s ? null : "#ddd").filter(d => d === s).raise();
+ //   path.attr("stroke", d => d === s ? null : "#ddd").filter(d => d === s).raise();
+    path.attr("stroke", d => d === s ? line_color(d.name) : "#ddd").filter(d => d === s).raise();
     dot.attr("transform", `translate(${x(data.dates[i])},${y(s.values[i])})`);
     dot.select("text").text(s.name);
   }
@@ -135,6 +136,17 @@ g => g
         .attr("font-weight", "bold")
         .text(data.y))
 )});
+  main.variable(observer("line_color")).define("line_color", ["d3","data"], function(d3,data){return(
+//d3.scaleOrdinal(d3.schemeTableau10)
+d3.scaleOrdinal(d3.schemeCategory10)
+//d3.scaleOrdinal()
+	  
+	  //              .domain(["Optico", "Radio", "Gamma-Ray", "X.Rays"])
+//              .range(['#ddd','blue', 'green', 'reed', 'brown'])
+)});
+
+
+
   main.variable(observer("line")).define("line", ["d3","x","data","y"], function(d3,x,data,y){return(
 d3.line()
     .defined(d => !isNaN(d))
