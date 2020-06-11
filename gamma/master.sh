@@ -70,7 +70,7 @@ echo "echo \"\$mjd	\$F\" >> cont1.dat" >> lc_gen.sh
 echo "sed -e s/Flux://g -e s/Index://g -e s/s//g -e s/photon//g -e s/cm^2//g -e s/-//g  cont1.dat >conteo1.dat" >> lc_gen.sh
 echo "sed 's/+/	/g' conteo1.dat > con.dat" >> lc_gen.sh
 echo "sed 's/[/]//g' con.dat > conteo1a.dat" >> lc_gen.sh
-echo "sed 's/e/e-/g' conteo1a.dat > ${src}.dat" >> lc_gen.sh
+echo "sed 's/e/e-/g' conteo1a.dat > ${src}_gamma_lc.dat" >> lc_gen.sh
 echo "((n += 1))" >> lc_gen.sh
 echo "done" >> lc_gen.sh
 echo "rm con.dat cont1.dat conteo1.dat archivo0.dat archivo1.dat archivo2.dat archivo3.dat conteo1a.dat archivo.dat " >> lc_gen.sh
